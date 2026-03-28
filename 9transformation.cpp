@@ -1,3 +1,8 @@
+// Use this point to get perfect centered Point	X	Y
+// A	-1.3	-1.3
+// B	1.7	-1.3
+// C	-0.3	2.7
+
 #include<stdio.h>
 #include<conio.h>
 #include<graphics.h>
