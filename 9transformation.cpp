@@ -3,72 +3,68 @@
 #include<graphics.h>
 #include<math.h>
 
-int x1,y1,x2,y2,x3,y3;
-int a=0,b=0;   // rotation about origin
-
-void draw();
-void rotate();
-
 int main()
 {
     int gd=DETECT,gm;
     initgraph(&gd,&gm,"C:\\TC\\BGI");
 
-    printf("Enter first coordinate: ");
-    scanf("%d%d",&x1,&y1);
-
-    printf("Enter second coordinate: ");
-    scanf("%d%d",&x2,&y2);
-
-    printf("Enter third coordinate: ");
-    scanf("%d%d",&x3,&y3);
-
-    draw();
-    getch();
-
-    rotate();
-    getch();
-
-    closegraph();
-    return 0;
-}
-
-void draw()
-{
-    setcolor(WHITE);
-    line(x1,y1,x2,y2);
-    line(x2,y2,x3,y3);
-    line(x3,y3,x1,y1);
-}
-
-void rotate()
-{
-    int a1,a2,a3,b1,b2,b3;
+    float x1,y1,x2,y2,x3,y3;
+    float xr1,yr1,xr2,yr2,xr3,yr3;
     float angle;
 
-    printf("Enter rotation angle: ");
+    int xc = 320, yc = 240;
+    int scale = 40;     // increased scale
+    int offset = 180;   // spacing between shapes
+
+    // Input
+    printf("Enter A: ");
+    scanf("%f%f",&x1,&y1);
+
+    printf("Enter B: ");
+    scanf("%f%f",&x2,&y2);
+
+    printf("Enter C: ");
+    scanf("%f%f",&x3,&y3);
+
+    printf("Enter angle: ");
     scanf("%f",&angle);
 
-    cleardevice();
+    angle = angle * 3.14 / 180;
 
-    angle = (angle * 3.14) / 180;
+    // ---------- ORIGINAL ----------
+    setcolor(WHITE);
+    line(xc - offset + x1*scale, yc - y1*scale,
+         xc - offset + x2*scale, yc - y2*scale);
 
-    // Correct rotation formula (about origin)
-    a1 = a + (x1-a)*cos(angle) - (y1-b)*sin(angle);
-    b1 = b + (x1-a)*sin(angle) + (y1-b)*cos(angle);
+    line(xc - offset + x2*scale, yc - y2*scale,
+         xc - offset + x3*scale, yc - y3*scale);
 
-    a2 = a + (x2-a)*cos(angle) - (y2-b)*sin(angle);
-    b2 = b + (x2-a)*sin(angle) + (y2-b)*cos(angle);
+    line(xc - offset + x3*scale, yc - y3*scale,
+         xc - offset + x1*scale, yc - y1*scale);
 
-    a3 = a + (x3-a)*cos(angle) - (y3-b)*sin(angle);
-    b3 = b + (x3-a)*sin(angle) + (y3-b)*cos(angle);
+    // ---------- ROTATION ----------
+    xr1 = x1*cos(angle) - y1*sin(angle);
+    yr1 = x1*sin(angle) + y1*cos(angle);
 
-    // Draw rotated triangle
+    xr2 = x2*cos(angle) - y2*sin(angle);
+    yr2 = x2*sin(angle) + y2*cos(angle);
+
+    xr3 = x3*cos(angle) - y3*sin(angle);
+    yr3 = x3*sin(angle) + y3*cos(angle);
+
+    // ---------- ROTATED ----------
     setcolor(RED);
-    line(a1,b1,a2,b2);
-    line(a2,b2,a3,b3);
-    line(a3,b3,a1,b1);
+    line(xc + offset + xr1*scale, yc - yr1*scale,
+         xc + offset + xr2*scale, yc - yr2*scale);
 
-    printf("\nRotated Coordinates:\n");
-    printf("%d %d\n%d %d\n%d %d",a1,b1,a2,b2,a3,b3);
+    line(xc + offset + xr2*scale, yc - yr2*scale,
+         xc + offset + xr3*scale, yc - yr3*scale);
+
+    line(xc + offset + xr3*scale, yc - yr3*scale,
+         xc + offset + xr1*scale, yc - yr1*scale);
+
+   
+    getch();
+    closegraph();
+    return 0;
 }
