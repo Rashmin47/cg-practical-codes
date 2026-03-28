@@ -34,7 +34,7 @@ int main()
     int gd = DETECT, gm;
     int x, y, z, d;
 
-    initgraph(&gd, &gm, "C:\\TC3\\BGI");
+    initgraph(&gd, &gm, "C:\\TC\\BGI");
 
     printf("Enter 3D point (x y z): ");
     scanf("%d %d %d", &x, &y, &z);
