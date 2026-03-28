@@ -33,7 +33,7 @@ int main() {
 
     // Plotting points
     for (i = 0; i <= steps; i++) {
-        putpixel(round(x), round(y), WHITE);
+        putpixel((int)(x + 0.5), (int)(y + 0.5), WHITE);
         x += x_inc;
         y += y_inc;
     }
